@@ -1,0 +1,203 @@
+<head>
+  <title>Breadbuilder</title>
+  <link type="text/css" rel="stylesheet" href="main.css">
+  <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap">
+  <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+  <!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript">$.getScript("main.js")</script>-->
+</head>
+
+<body>
+  <noscript>
+    <style>body > div { display: none }</style>
+    <div style="font-size:32px">WARNING: Javascript is disabled!</div>
+  </noscript>
+  <div id="nav" class="main">
+    <div class="title">クラス</div>
+    <div id="nav-technomancer" class="button" data-class="technomancer">テクノマンサー</div>
+    <div id="nav-pyromancer" class="button" data-class="pyromancer">パイロマンサー</div>
+    <div id="nav-trickster" class="button" data-class="trickster">トリックスター</div>
+    <div id="nav-devastator" class="button" data-class="devastator">デバステーター</div>
+  </div>
+
+  <div id="skilltree">
+    <div class="technomancer skilltree">
+      <img src="skilltrees/technomancer.webp" />
+      <div class="nodes"></div>
+    </div>
+
+    <div class="pyromancer skilltree">
+      <img src="skilltrees/pyromancer.webp" />
+      <div class="nodes"></div>
+    </div>
+
+    <div class="trickster skilltree">
+      <img src="skilltrees/trickster.webp" />
+      <div class="nodes"></div>
+    </div>
+
+    <div class="devastator skilltree">
+      <img src="skilltrees/devastator.webp" />
+      <div class="nodes"></div>
+    </div>
+
+    <div id="points"></div>
+    <div id="reset" class="button">リセット</div>
+
+    <div class="options">
+      <div class="title">オプション</div>
+
+      <ul>
+        <li>
+          <label for="nodenames">
+            <input type="checkbox" id="nodenames" name="nodenames">
+            <span>ノード名を表示</span>
+          </label>
+        </li>
+      </ul>
+      <hr>
+      <div id="search">
+        <input id="searchtext" type="text" name="search">
+        <div class="button">検索</div>
+        <div id="searchcount"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="stats" class="main">
+    <div class="title">ステータス</div>
+
+    <div class="options">
+      <div class="title">オプション</div>
+
+      <ul>
+        <li>
+          <label for="allstats">
+            <input type="checkbox" id="allstats" name="allstats">
+            <span>全ステータス</span>
+          </label>
+        </li>
+        <li>
+          <label for="maxstats">
+            <input type="checkbox" id="maxstats" name="maxstats">
+            <span>ステータスの最大値</span>
+          </label>
+        </li>
+        <li>
+          <label for="nodecount">
+            <input type="checkbox" id="nodecount" name="nodecount">
+            <span>ノード数</span>
+          </label>
+        </li>
+        <li>
+          <label for="sortstats">
+            <input type="checkbox" id="sortstats" name="sortstats">
+            <span>ソート</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <div id="statskey">
+      <div class="title">Key</div>
+
+      <ul>
+        <li class="stat-0">1-33%</li>
+        <li class="stat-1">34-66%</li>
+        <li class="stat-2">67-99%</li>
+        <li class="stat-3">Max</li>
+      </ul>
+    </div>
+
+    <div class="trickster statstable">
+      <table></table>
+      <table></table>
+      <div class="cooldowns"></div>
+    </div>
+
+    <div class="pyromancer statstable">
+      <table></table>
+      <table></table>
+      <div class="cooldowns"></div>
+    </div>
+
+    <div class="devastator statstable">
+      <table></table>
+      <table></table>
+      <div class="cooldowns"></div>
+    </div>
+
+    <div class="technomancer statstable">
+      <table></table>
+      <table></table>
+      <div class="cooldowns"></div>
+    </div>
+  </div>
+
+  <div id="dps" class="main">
+    <div class="title">DPS計算機</div>
+
+    <div id="dps-input">
+      <div>
+        <input id="dps-in-clip" type="number" min="1">
+        <div>Clip Size</div>
+      </div>
+      <div>
+        <input id="dps-in-rpm" type="number" min="1">
+        <div>RPM</div>
+      </div>
+      <div>
+        <input id="dps-in-dmg" type="number" min="1">
+        <div>DMG</div>
+      </div>
+      <div>
+        <input id="dps-in-reload" type="number" min="0" step="0.1"> s
+        <div>Reload</div>
+      </div>
+      <div>
+        <input id="dps-in-crit" type="number" min="100" value="120"> %
+        <div>Crit mult</div>
+      </div>
+      <div class="vr"></div>
+      <div>
+        <input id="dps-in-acc" type="number" min="5" max="100" value="50"> %
+        <div>Crit rate</div>
+      </div>
+    </div>
+
+    <div id="dps-result">
+      <table>
+        <tr>
+          <th colspan="2" class="vb">Damage per Shot</th>
+          <th rowspan="2">Damage per Clip</th>
+          <th rowspan="2">Simple DPS</th>
+          <th rowspan="2">True DPS</th>
+        </tr>
+        <tr>
+          <th>Normal</th>
+          <th class="vb">Crit</th>
+        </tr>
+        <tr>
+          <td id="dps-dmg">-</td>
+          <td id="dps-crit" class="vb">-</td>
+          <td id="dps-clip">-</td>
+          <td id="dps-simple">-</td>
+          <td id="dps-true">-</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="float:left;margin-bottom: 15px;">
+    <div class="title" style="margin-bottom:6px">Original Credit Resources</div>
+    <ul>
+      <li><a href="https://paradoxzyx.github.io/" target="_blank">English version of the original</a> - Paradoxzyx
+      </li>
+      <li><a href="https://docs.google.com/spreadsheets/d/1ilZx_abxV-IMIlbVUckIU2Glb0FaZ3_GlqyA4Rqsc0k/edit#gid=0"
+          target="_blank">Spreadsheet</a> - FatPickleSmith</li>
+      <li><a href="https://www.youtube.com/watch?v=issxrCT2JeI&list=PLFf6hxfFNzMdbziwQMoP8AeoT4aExqmO8"
+          target="_blank">Class Spotlight Videos</a> - Outriders Youtube</li>
+    </ul>
+  </div>
+</body>
