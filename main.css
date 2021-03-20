@@ -307,6 +307,7 @@ a {
     min-width: 120px;
     margin: 10px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 #stats .statstable .cooldowns img {
